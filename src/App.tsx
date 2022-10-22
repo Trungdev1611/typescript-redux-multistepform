@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { useAppSelector, useAppDispatch } from './reduxtoolkit/hooksredux'
+import { increment, decrement, amount, reset } from './reduxtoolkit/counterSlice'
+import IndexMulti from './multiStepform';
 function App() {
+  const selector = useAppSelector(state => state)
+  const dispatch = useAppDispatch()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <h2>Redux toolkit - Typescript</h2>
+      <h2>{selector.count}</h2>
+      <div>
+        <p>Cac option counter</p>
+        <button onClick={() => dispatch(increment(100))}>Increment</button>
+        <button onClick={() => dispatch(decrement(100))}>Decrement</button>
+        <button onClick={() => dispatch(amount(10))}>+10</button>
+        <button onClick={() => dispatch(reset(10))}>Reset</button>
+      </div>
+      <div style={{
+        border: '1px solid black', borderRadius: '10px',
+        maxWidth: '800px', minHeight: '200px', marginTop: '20px', padding: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center'
+      }}>
+        <IndexMulti />
+      </div>
     </div>
   );
 }
